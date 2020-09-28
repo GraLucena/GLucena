@@ -1,15 +1,14 @@
 //
-//  GLucenaTestTests.swift
+//  TransactionsViewMock.swift
 //  GLucenaTestTests
 //
-//  Created by Graciela on 27/09/2020.
+//  Created by Graciela on 28/09/2020.
 //  Copyright © 2020 Graciela. All rights reserved.
 //
 
 import XCTest
-@testable import GLucenaTest
 
-class GLucenaTestTests: XCTestCase {
+class TransactionsViewMock: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
