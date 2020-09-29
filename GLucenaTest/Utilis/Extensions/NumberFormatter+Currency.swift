@@ -7,3 +7,21 @@
 //
 
 import Foundation
+
+extension NumberFormatter {
+    convenience init(numberStyle: Style) {
+        self.init()
+        self.numberStyle = numberStyle
+        currencyCode = "EUR"
+    }
+}
+
+extension Formatter {
+    static let currencyWithDecimal: NumberFormatter = {
+        let formatter = NumberFormatter(numberStyle: .currency)
+        formatter.locale = Locale(identifier: "es_ES")
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+}

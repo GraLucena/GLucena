@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol AlertCoordinatorProtocol: BaseCoordinatorProtocol {}
+
+final class AlertCoordinator: BaseCoordinator, AlertCoordinatorProtocol {}

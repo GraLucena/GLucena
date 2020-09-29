@@ -25,7 +25,7 @@ class LoginServerTests: XCTestCase {
         Mocker.removeAll()
     }
 
-    func testLogin() {
+    func testGetTransactions() {
         let expectation = self.expectation(description: "Transaction Request Success")
         var success: Bool = false
         mockRequest()

@@ -15,9 +15,14 @@ protocol BaseCoordinatorProtocol: AnyObject {
 
     func configure(openTransition: Transition?)
     func open(_ viewController: UIViewController, transition: Transition)
+    func close(animated: Bool)
 
-//    //Common routes
-//    func showAlert(with configuration: CustomAlert)
+    //Common navigations, for all coordinators.
+    func showAlert(with configuration: AlertConfiguration)
 }
 
-extension BaseCoordinatorProtocol {}
+extension BaseCoordinatorProtocol {
+    func close(animated: Bool = true) {
+        close(animated: true)
+    }
+}

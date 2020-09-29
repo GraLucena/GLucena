@@ -22,13 +22,25 @@ class BaseCoordinator: BaseCoordinatorProtocol {
         transition.open(viewController)
     }
 
+    func close(animated: Bool = true) {
+        guard let transition = openTransition else {
+            assertionFailure("Open transition is not set. Use configure(openTransition:) in the route set up.")
+            return
+        }
+        guard let viewController = viewController else {
+            assertionFailure("Origin view controller is not set.")
+            return
+        }
+        transition.close(viewController, animated: animated)
+    }
+
     deinit {
         print("deinit ", self)
     }
 }
 
-//extension MO2ORouter: CustomAlertRoute {
-//    func showAlert(with configuration: CustomAlert) {
-//        openAlert(configuration: configuration)
-//    }
-//}
+extension BaseCoordinator: AlertRoute {
+    func showAlert(with configuration: AlertConfiguration) {
+        openAlert(configuration: configuration)
+    }
+}

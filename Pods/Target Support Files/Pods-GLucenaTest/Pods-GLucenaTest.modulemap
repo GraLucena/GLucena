@@ -1,0 +1,6 @@
+framework module Pods_GLucenaTest {
+  umbrella header "Pods-GLucenaTest-umbrella.h"
+
+  export *
+  module * { export * }
+}

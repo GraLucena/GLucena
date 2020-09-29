@@ -20,16 +20,16 @@ class BasePresenter<V: BaseViewProtocol, C: BaseCoordinatorProtocol>: BasePresen
     func defaultError(_ error: String) {
         DispatchQueue.main.async {
             self.view?.hideLoading()
-//            let customAlert = CustomAlert(title: "Global.error".locale(), description: error, okButton: "Global.accept".locale())
-//            self.router.showAlert(with: customAlert)
+            let customAlert = AlertConfiguration(title: "Error", description: error, okButton: "Accept")
+            self.coordinator.showAlert(with: customAlert)
         }
     }
 
     func noInternetError(_ error: String) {
         DispatchQueue.main.async {
             self.view?.hideLoading()
-//            let customAlert = CustomAlert(title: "Global.error".locale(), description: error, okButton: "Global.accept".locale())
-//            self.router.showAlert(with: customAlert)
+            let customAlert = AlertConfiguration(title: "Error", description: error, okButton: "Accept")
+            self.coordinator.showAlert(with: customAlert)
         }
     }
 }

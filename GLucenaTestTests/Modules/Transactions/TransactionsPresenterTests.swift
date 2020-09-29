@@ -6,28 +6,32 @@
 //  Copyright © 2020 Graciela. All rights reserved.
 //
 
+@testable import GLucenaTest
+import Foundation
 import XCTest
 
 class TransactionsPresenterTests: XCTestCase {
+    var sut: TransactionsPresenter<TransactionsViewMock, TransactionsCoordinatorMock>!
+    var view: TransactionsViewMock!
+    var coordinator: TransactionsCoordinatorMock!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
+        view = TransactionsViewMock()
+        coordinator = TransactionsCoordinatorMock()
+        sut = TransactionsPresenter(coordinator: coordinator, view: view)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testDataLoaded() {
+        sut.viewDidLoad()
+        XCTAssertTrue(view.showingLoading)
+        let exp = expectation(description: "Test after 5 seconds")
+        let result = XCTWaiter.wait(for: [exp], timeout: 5.0)
+        if result == XCTWaiter.Result.timedOut {
+            XCTAssertTrue(view.dataReloaded)
+            XCTAssertTrue(view.hiddenLoading)
+        } else {
+            XCTFail("Delay interrupted")
         }
     }
-
 }

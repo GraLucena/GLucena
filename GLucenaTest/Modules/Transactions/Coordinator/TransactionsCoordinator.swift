@@ -6,6 +6,7 @@
 //  Copyright © 2020 Graciela. All rights reserved.
 //
 
+/// Define here the routes where this VC can navigate.
 protocol TransactionsCoordinatorProtocol: BaseCoordinatorProtocol {}
 
 final class TransactionsCoordinator: BaseCoordinator, TransactionsCoordinatorProtocol {}

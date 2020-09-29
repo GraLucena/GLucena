@@ -6,28 +6,46 @@
 //  Copyright © 2020 Graciela. All rights reserved.
 //
 
+@testable import GLucenaTest
 import XCTest
 
 class TransactionTests: XCTestCase {
+    var transaction: Transaction!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
+        let json = """
+                    {
+                        "id": 4734,
+                        "date": "2018-07-11T22:49:24.000Z",
+                        "amount": -193.38,
+                        "fee": -3.18,
+                        "description": "Lorem ipsum dolor sit amet"
+                    }
+        """
+        
+        let jsonData = json.data(using: .utf8)!
+        transaction = try! JSONDecoder().decode(Transaction.self, from: jsonData)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testModel() {
+        XCTAssertEqual(transaction.id, 4734)
+        XCTAssertEqual(transaction.date, Date(string: "2018-07-11T22:49:24.000Z", formatter: .fullDate))
+        XCTAssertEqual(transaction.amount, -193.38)
+        XCTAssertEqual(transaction.fee, -3.18)
+        XCTAssertEqual(transaction.description, "Lorem ipsum dolor sit amet")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testTotal() {
+        XCTAssertEqual(transaction.total, (transaction.amount ?? 0) + (transaction.fee ?? 0))
+    }
+    
+    func testOutcome() {
+        XCTAssertEqual(transaction.type, TransactionType.outcome)
     }
 
 }

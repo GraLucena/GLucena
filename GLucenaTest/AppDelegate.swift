@@ -10,11 +10,15 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if #available(iOS 13.0, *) {} else {
+            setupInitialScene()
+        }
+
         return true
     }
 
@@ -35,3 +39,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// -------------------------------------
+// MARK: Section - Setup
+// -------------------------------------
+private extension AppDelegate {
+    func setupInitialScene() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+
+        let rootBuilder = TransactionsBuilder()
+        window?.rootViewController = rootBuilder.build()
+        window?.makeKeyAndVisible()
+    }
+}

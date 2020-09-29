@@ -14,4 +14,11 @@ protocol Transition: AnyObject {
     var completionHandler: (() -> Void)? { get set }
 
     func open(_ viewController: UIViewController)
+    func close(_ viewController: UIViewController, animated: Bool)
+}
+
+extension Transition {
+    func close(_ viewController: UIViewController, animated: Bool = true) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
 }

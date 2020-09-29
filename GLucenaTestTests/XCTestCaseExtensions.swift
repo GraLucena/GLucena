@@ -6,28 +6,28 @@
 //  Copyright © 2020 Graciela. All rights reserved.
 //
 
+@testable import GLucenaTest
+import Foundation
 import XCTest
 
-class XCTestCaseExtensions: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+extension XCTestCase {
+    func getModelFromJson<T>(_ resource: String) -> T where T: Codable {
+        let url = Bundle(for: type(of: self)).url(forResource: resource, withExtension: "json")
+        let data = try? Data(contentsOf: url!)
+        let jsonDecoder = JSONDecoder()
+        return try! jsonDecoder.decode(T.self, from: data!)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func mockedDataFromJson(_ resource: String) -> Data? {
+        let url = Bundle(for: type(of: self)).url(forResource: resource, withExtension: "json")
+        return try? Data(contentsOf: url!)
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func mockNetworkManager() -> NetworkManager {
+        let networkManager = NetworkManager(baseURL: Config.default.apiBaseUrl,
+                                            headers: [:])
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        return networkManager
     }
-
 }
+
